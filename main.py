@@ -18,17 +18,19 @@ for i in range(3):
 
 
 # Load the model
-model = model_load_compile('models/base_model_3.h5')
+model = model_load_compile('models/base_model_fulldata_2.h5')
 
-#Take one ecg picture to make a prediction
-img = tf.keras.preprocessing.image.load_img('ecg1_no_grid.jpg')
+for i in range(3):
+    #Take one ecg picture to make a prediction
+    img = tf.keras.preprocessing.image.load_img(f'ecg{i+1}_no_grid.jpg')
 
-# Resize the image to match the target shape
-new_height, new_width = 79, 622  # Specify the target height and width
-resized_img = tf.image.resize(img, (new_height, new_width))
+    # Resize the image to match the target shape
+    new_height, new_width = 79, 622  # Specify the target height and width
+    resized_img = tf.image.resize(img, (new_height, new_width))
 
-# Expand the dimensions to create a batch with a single image
-input_img = tf.expand_dims(resized_img/255, axis=0)
+    # Expand the dimensions to create a batch with a single image
+    input_img = tf.expand_dims(resized_img/255, axis=0)
 
-# Make predictions
-print(model.predict(input_img))
+    # Make predictions
+    predictions_list = model.predict(input_img).tolist()[0]
+    print(predictions_list.index(max(predictions_list)))
