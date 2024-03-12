@@ -130,3 +130,18 @@ webencodings==0.5.1
 websocket-client==1.7.0
 widgetsnbextension==4.0.10
 xgboost==2.0.3
+
+#model logic
+tensorflow
+keras
+
+#PDF processing
+PyPDF2
+pdf2image
+opencv-python
+
+
+#API
+uvicorn
+fastapi
+python-multipart
