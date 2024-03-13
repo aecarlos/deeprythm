@@ -23,5 +23,4 @@ uvicorn
 fastapi
 python-multipart
 requests
-base64
 openai==0.28
