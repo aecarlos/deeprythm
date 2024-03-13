@@ -6,7 +6,7 @@ from data.pdf_proc import crop_pdf, remove_grid
 import requests
 from PIL import Image
 import io
-
+import openai
 
 # Configurar la página
 st.set_page_config(layout="wide", page_title="ElectroCardiogram Classifier")
@@ -57,3 +57,33 @@ if pdf_path is not None:
             st.success(f"Prediction: {data['prediction']}")
         else:
             st.error("Failed to fetch images and prediction from API")
+
+
+# Set up OpenAI API key
+openai.api_key = "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"
+
+# Function to generate GPT response
+def generate_response(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-002",  # You can choose a different GPT model here
+        prompt=prompt,
+        max_tokens=50  # Adjust based on desired length of the response
+    )
+    return response.choices[0].text.strip()
+
+# Streamlit app layout
+st.title("GPT Recommendation")
+
+# User input prompt
+prompt = f"My heart is classified with this rythm {data['prediction']}, give me some basic health and lifestyle recommendations."
+
+# Generate response button
+if st.button("Generate Response"):
+    if prompt:
+        # Generate GPT response
+        response = generate_response(prompt)
+        # Display response
+        st.write("Generated Response:")
+        st.write(response)
+    else:
+        st.write("Please enter a prompt.")
