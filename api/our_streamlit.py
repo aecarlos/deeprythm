@@ -1,10 +1,8 @@
 import streamlit as st
 from PIL import Image
-import fitz
 import requests
 import io
 import openai
-import tools
 import base64
 
 # Configurar la página
