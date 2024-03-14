@@ -50,8 +50,6 @@ if pdf_path is not None:
 
     if response.status_code != 400:
         data = response.json()
-        st.write(data)
-        st.write(response.status_code)
         sub_cr = 'Cropped image'
         sub_gl = 'Grid removed image'
         title_cr = 'Image cropped from the .pdf'
@@ -86,17 +84,10 @@ if pdf_path is not None:
 
         # User input prompt
         prompt = f"My heart is classified with this rythm {data['prediction']}.I am a {gender} and I have {age} years old. Could you give me some basic health and lifestyle recommendations according to my characteristics?"
-
-        # Generate response button
-        if st.button("Generate Response"):
-            if prompt:
-                # Generate GPT response
-                response = generate_response(prompt)
-                # Display response
-                st.write("Generated Response:")
-                st.write(response)
-            else:
-                st.write("Please enter a prompt.")
-
+        # Generate GPT response
+        response = generate_response(prompt)
+        # Display response
+        st.write("Take into consideration:")
+        st.write(response)
     else:
         st.error("Failed to fetch images and prediction from API")
