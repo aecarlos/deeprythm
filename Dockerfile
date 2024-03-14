@@ -23,5 +23,4 @@ COPY main.py /main.py
 #COPY Makefile /Makefile
 #RUN make reset_local_files
 
-CMD uvicorn api.fast:app --host 0.0.0.0
-#--port $PORT
+CMD uvicorn api.fast:app --host 0.0.0.0 --port $PORT
