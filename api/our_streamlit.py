@@ -69,7 +69,7 @@ if pdf_path is not None:
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
-        st.subheader(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
+        st.markdown(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
         st.success(f"<h2>Prediction: <b>{data_r['prediction']}</b></h2>")
 
         # Streamlit app layout
