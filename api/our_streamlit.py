@@ -108,6 +108,7 @@ if ecg_path is not None:
 
     # Upload the ECG and get a response with images and predictions
     response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/uploadecg', files=files)
+    st.write(response.status_code)
     if response.status_code != 400:
         data_r = response.json()
         sub_gl = 'Grid removed image'
