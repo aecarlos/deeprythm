@@ -35,7 +35,7 @@ pdf_path = st.sidebar.file_uploader("Upload a PDF", type=["pdf"])
 # Functions to cut the pdf and remove the grid
 #with fitz.open(stream=uploaded_file.getvalue(), filetype="pdf") as pdf_file:
 ecg_path = None
-ecg_path = st.sidebar.file_uploader("Upload an ECG", type=["jpeg", "jpg"])
+ecg_path = st.sidebar.file_uploader("Upload an ECG", type=["jpeg", "jpg", 'png'])
 
 data_r = None
 if pdf_path is not None:
@@ -69,7 +69,7 @@ if pdf_path is not None:
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
-        st.success(f"Prediction: {data_r['prediction']}")
+        st.success(f"Prediction: **{data_r['prediction']}**")
 
         # Streamlit app layout
         st.title("General Health Insights and Suggestions")
@@ -87,7 +87,7 @@ if pdf_path is not None:
             return response.choices[0].message['content']
 
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format so it is shown fancy in my streamlit app."
+        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
@@ -108,7 +108,6 @@ if ecg_path is not None:
 
     # Upload the ECG and get a response with images and predictions
     response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/uploadecg', files=files)
-    st.write(response.status_code)
     if response.status_code != 400:
         data_r = response.json()
         sub_gl = 'Grid removed image'
@@ -139,7 +138,7 @@ if ecg_path is not None:
 
         # User input prompt
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format so it is shown fancy in my streamlit app."
+        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
