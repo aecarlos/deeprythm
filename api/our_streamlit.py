@@ -19,7 +19,7 @@ excluded_classes = [
 st.set_page_config(layout="wide", page_title="ElectroCardiogram Classifier")
 
 # Título principal y texto introductorio
-st.title("Classify your ECG :heart:")
+st.title("Classify your ECG 🫀🧑🏼‍⚕️")
 st.write("<br>", unsafe_allow_html=True)
 st.write("<br>", unsafe_allow_html=True)
 st.write(":dog: Try uploading an ElectroCardiogram PDF. This code is open source and available [here](https://github.com/ivanmarim/deeprythm) on GitHub")
