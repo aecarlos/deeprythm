@@ -46,11 +46,10 @@ if pdf_path is not None:
     pdf_file = io.BytesIO(pdf_data)
 
     # Create a dictionary containing the file to be uploaded
-    files = {'file': pdf_file,
-             'device': watch}
+    files = {'file': pdf_file}
 
     # Upload the PDF and get a response with images and predictions
-    response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/upload', files=files)
+    response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/upload', params = watch, files=files)
 
     if response.status_code != 400:
         data = response.json()
