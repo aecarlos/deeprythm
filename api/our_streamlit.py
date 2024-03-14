@@ -70,7 +70,7 @@ if pdf_path is not None:
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
         st.subheader(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
-        st.success(f"Prediction: **{data_r['prediction']}**")
+        st.success(f"<h2>Prediction: <b>{data_r['prediction']}</b></h2>")
 
         # Streamlit app layout
         st.title("General Health Insights and Suggestions")
@@ -88,7 +88,8 @@ if pdf_path is not None:
             return response.choices[0].message['content']
 
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
+        #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
+        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown with a font size of 18 for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
@@ -121,6 +122,7 @@ if ecg_path is not None:
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
         st.subheader(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
+        st.success(f"<h2>Prediction: <b>{data_r['prediction']}</b></h2>")
 
         # Streamlit app layout
         st.title("General Health Insights and Suggestions")
@@ -139,7 +141,8 @@ if ecg_path is not None:
 
         # User input prompt
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
+        #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
+        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown with a font size of 18 for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
