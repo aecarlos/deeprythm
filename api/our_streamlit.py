@@ -20,19 +20,22 @@ st.sidebar.write("You selected ", age)
 gender = st.sidebar.selectbox('Your gender', options=['Male', 'Female'])
 st.sidebar.write("You selected ", gender)
 
-height = st.sidebar.slider('Your height (in cm)', min_value=0, max_value=210)
-st.sidebar.write("You selected ", age)
+height = st.sidebar.slider('Your height (in cm)', min_value=0, max_value=220)
+st.sidebar.write("You selected ", height)
+
+weight = st.sidebar.slider('Your weight (in KG)', min_value=0, max_value=200)
+st.sidebar.write("You selected ", weight)
 
 # Importante elegir el tipo de reloj
 watch = st.sidebar.selectbox('Your watch is', options=['Samsung', 'Apple'])
 st.sidebar.write("You selected ", watch) # to use this in the API
-
 pdf_path = None
 # Subir archivo PDF
 pdf_path = st.sidebar.file_uploader("Upload a PDF", type=["pdf"])
 # Functions to cut the pdf and remove the grid
 #with fitz.open(stream=uploaded_file.getvalue(), filetype="pdf") as pdf_file:
-import io
+ecg_path = None
+ecg_path = st.sidebar.file_uploader("Upload an ECG", type=["pdf"])
 
 data = None
 if pdf_path is not None:
@@ -43,7 +46,8 @@ if pdf_path is not None:
     pdf_file = io.BytesIO(pdf_data)
 
     # Create a dictionary containing the file to be uploaded
-    files = {'file': pdf_file}
+    files = {'file': pdf_file,
+             'device': watch}
 
     # Upload the PDF and get a response with images and predictions
     response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/upload', files=files)
