@@ -69,6 +69,7 @@ if pdf_path is not None:
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
+        st.subheader(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
         st.success(f"Prediction: **{data_r['prediction']}**")
 
         # Streamlit app layout
@@ -92,7 +93,7 @@ if pdf_path is not None:
         response = generate_response(prompt)
         # Display response
         st.write("Take into consideration:")
-        st.write(response)
+        st.markdown(response)
     else:
         st.error("Failed to fetch images and prediction from API")
 
@@ -110,7 +111,7 @@ if ecg_path is not None:
     response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/uploadecg', files=files)
     if response.status_code != 400:
         data_r = response.json()
-        sub_gl = 'Grid removed image'
+        sub_gl = 'Cardiac Rhythm Visualization: An ECG Snapshot'
         title_cr = 'Image cropped from the .pdf'
         title_gl = 'Cardiac Rhythm Visualization: An ECG Snapshot'
 
@@ -119,7 +120,7 @@ if ecg_path is not None:
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
-        st.success(f"Prediction: {data_r['prediction']}")
+        st.subheader(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
 
         # Streamlit app layout
         st.title("General Health Insights and Suggestions")
@@ -143,6 +144,6 @@ if ecg_path is not None:
         response = generate_response(prompt)
         # Display response
         st.write("Take into consideration:")
-        st.write(response)
+        st.markdown(response)
     else:
         st.error("Failed to fetch images and prediction from API")
