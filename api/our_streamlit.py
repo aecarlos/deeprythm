@@ -35,7 +35,7 @@ pdf_path = st.sidebar.file_uploader("Upload a PDF", type=["pdf"])
 # Functions to cut the pdf and remove the grid
 #with fitz.open(stream=uploaded_file.getvalue(), filetype="pdf") as pdf_file:
 ecg_path = None
-ecg_path = st.sidebar.file_uploader("Upload an ECG", type=["pdf"])
+ecg_path = st.sidebar.file_uploader("Upload an ECG", type=["jpeg", "jpg"])
 
 data_r = None
 if pdf_path is not None:
@@ -52,18 +52,17 @@ if pdf_path is not None:
 
     # Upload the PDF and get a response with images and predictions
     response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/upload', data = data, files=files)
-
     if response.status_code != 400:
         data_r = response.json()
         sub_cr = 'Cropped image'
-        sub_gl = 'Grid removed image'
+        sub_gl = 'Real-time Cardiac Analysis: ECG Visualization from Smartwatch Data'
         title_cr = 'Image cropped from the .pdf'
-        title_gl = 'Grid removed from the image to pass through the model'
+        title_gl = 'Real-time Cardiac Analysis: ECG Visualization from Smartwatch Data'
 
-        st.subheader(f"{title_cr}")
-        image1_data = base64.b64decode(data_r['image'])
-        image1 = Image.open(io.BytesIO(image1_data))
-        st.image(image1, caption=f"{sub_cr}", use_column_width=True)
+        #st.subheader(f"{title_cr}")
+        #image1_data = base64.b64decode(data_r['image'])
+        #image1 = Image.open(io.BytesIO(image1_data))
+        #st.image(image1, caption=f"{sub_cr}", use_column_width=True)
 
         st.subheader(f"{title_gl}")
         image2_data = base64.b64decode(data_r['image_nogrid'])
@@ -73,7 +72,7 @@ if pdf_path is not None:
         st.success(f"Prediction: {data_r['prediction']}")
 
         # Streamlit app layout
-        st.title("Health tips and recommendations")
+        st.title("General Health Insights and Suggestions")
         # Set up OpenAI API key
         openai.api_key = st.secrets["api"]
 
@@ -88,7 +87,58 @@ if pdf_path is not None:
             return response.choices[0].message['content']
 
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations according to my characteristics?"
+        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format so it is shown fancy in my streamlit app."
+        # Generate GPT response
+        response = generate_response(prompt)
+        # Display response
+        st.write("Take into consideration:")
+        st.write(response)
+    else:
+        st.error("Failed to fetch images and prediction from API")
+
+if ecg_path is not None:
+    # Read the contents of the uploaded file
+    ecg_data = ecg_path.read()
+
+    # Create a file-like object from the bytes data
+    ecg_file = io.BytesIO(ecg_data)
+
+    # Create a dictionary containing the file to be uploaded
+    files = {'file': ecg_file}
+
+    # Upload the ECG and get a response with images and predictions
+    response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/uploadecg', files=files)
+    if response.status_code != 400:
+        data_r = response.json()
+        sub_gl = 'Grid removed image'
+        title_cr = 'Image cropped from the .pdf'
+        title_gl = 'Cardiac Rhythm Visualization: An ECG Snapshot'
+
+        st.subheader(f"{title_gl}")
+        image2_data = base64.b64decode(data_r['image'])
+        image2 = Image.open(io.BytesIO(image2_data))
+        st.image(image2, caption=f"{sub_gl}", use_column_width=True)
+
+        st.success(f"Prediction: {data_r['prediction']}")
+
+        # Streamlit app layout
+        st.title("General Health Insights and Suggestions")
+        # Set up OpenAI API key
+        openai.api_key = st.secrets["api"]
+
+
+        # Function to generate GPT response
+        def generate_response(prompt):
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",  # Specify the chat-based GPT model here
+                messages=[{"role": "system", "content": "Prompt: " + prompt}],
+                max_tokens=1000  # Adjust based on desired length of the response
+            )
+            return response.choices[0].message['content']
+
+        # User input prompt
+        # User input prompt
+        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format so it is shown fancy in my streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
