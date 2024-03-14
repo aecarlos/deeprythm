@@ -87,7 +87,7 @@ if pdf_path is not None:
             return response.choices[0].message['content']
 
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data['prediction']}.I am a {gender} and I have {age} years old. Could you give me some basic health and lifestyle recommendations according to my characteristics?"
+        prompt = f"My heart is classified with this rythm {data['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations according to my characteristics?"
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
