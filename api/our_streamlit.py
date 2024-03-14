@@ -37,7 +37,7 @@ pdf_path = st.sidebar.file_uploader("Upload a PDF", type=["pdf"])
 ecg_path = None
 ecg_path = st.sidebar.file_uploader("Upload an ECG", type=["pdf"])
 
-data = None
+data_r = None
 if pdf_path is not None:
     # Read the contents of the uploaded file
     pdf_data = pdf_path.read()
@@ -48,27 +48,29 @@ if pdf_path is not None:
     # Create a dictionary containing the file to be uploaded
     files = {'file': pdf_file}
 
+    data = {'device': watch}
+
     # Upload the PDF and get a response with images and predictions
-    response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/upload', params = watch, files=files)
+    response = requests.post('https://deeprhythm-2lapr5ij4q-od.a.run.app/upload', data = data, files=files)
 
     if response.status_code != 400:
-        data = response.json()
+        data_r = response.json()
         sub_cr = 'Cropped image'
         sub_gl = 'Grid removed image'
         title_cr = 'Image cropped from the .pdf'
         title_gl = 'Grid removed from the image to pass through the model'
 
         st.subheader(f"{title_cr}")
-        image1_data = base64.b64decode(data['image'])
+        image1_data = base64.b64decode(data_r['image'])
         image1 = Image.open(io.BytesIO(image1_data))
         st.image(image1, caption=f"{sub_cr}", use_column_width=True)
 
         st.subheader(f"{title_gl}")
-        image2_data = base64.b64decode(data['image_nogrid'])
+        image2_data = base64.b64decode(data_r['image_nogrid'])
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
 
-        st.success(f"Prediction: {data['prediction']}")
+        st.success(f"Prediction: {data_r['prediction']}")
 
         # Streamlit app layout
         st.title("Health tips and recommendations")
@@ -86,7 +88,7 @@ if pdf_path is not None:
             return response.choices[0].message['content']
 
         # User input prompt
-        prompt = f"My heart is classified with this rythm {data['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations according to my characteristics?"
+        prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations according to my characteristics?"
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
