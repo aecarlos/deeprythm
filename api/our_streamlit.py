@@ -113,7 +113,6 @@ if pdf_path is not None:
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
-        st.write("Take into consideration:")
         st.markdown(response)
     else:
         st.error("Failed to fetch images and prediction from API")
@@ -175,7 +174,6 @@ if ecg_path is not None:
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
-        st.write("Take into consideration:")
         st.markdown(response)
     else:
         st.error("Failed to fetch images and prediction from API")
