@@ -5,13 +5,25 @@ import io
 import openai
 import base64
 
+excluded_classes = [
+    "Sinus Bradycardia",
+    "Sinus Rhythm",
+    "Sinus Tachycardia",
+    "Sinus Irregularity",
+    "Sinus Atrium to Atrial Wandering Rhythm",
+    "Atrial Tachycardia"
+]
+
+
 # Configurar la página
 st.set_page_config(layout="wide", page_title="ElectroCardiogram Classifier")
 
 # Título principal y texto introductorio
 st.title("Classify your ECG :heart:")
-st.markdown(":dog: Try uploading an ElectroCardiogram PDF. This code is open source and available [here](https://github.com/ivanmarim/deeprythm) on GitHub")
-st.markdown('Special thanks to the [Physionet Dataset](https://physionet.org/content/ptb-xl/1.0.3/) :grin:')
+st.write("<br>", unsafe_allow_html=True)
+st.write("<br>", unsafe_allow_html=True)
+st.write(":dog: Try uploading an ElectroCardiogram PDF. This code is open source and available [here](https://github.com/ivanmarim/deeprythm) on GitHub")
+st.write('Special thanks to the [Physionet Dataset](https://physionet.org/content/ptb-xl/1.0.3/) :grin:')
 st.sidebar.header("Upload :gear:")
 
 age = st.sidebar.slider('Your age', min_value=0, max_value=100)
@@ -63,17 +75,25 @@ if pdf_path is not None:
         #image1_data = base64.b64decode(data_r['image'])
         #image1 = Image.open(io.BytesIO(image1_data))
         #st.image(image1, caption=f"{sub_cr}", use_column_width=True)
-
-        st.subheader(f"{title_gl}")
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.markdown(f"#### {title_gl}")
         image2_data = base64.b64decode(data_r['image_nogrid'])
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
-
-        st.markdown(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
-        st.success(f"<h2>Prediction: <b>{data_r['prediction']}</b></h2>")
-
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.markdown(f"## Your Deeprythm: ")
+        if data_r['prediction'] not in excluded_classes:
+            st.markdown(f"## ❤️‍🩹🩺 {data_r['prediction']} 🩺❤️‍🩹")
+        else:
+            st.markdown(f"## ❤️🩺 {data_r['prediction']} 🩺❤️")
         # Streamlit app layout
-        st.title("General Health Insights and Suggestions")
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.subheader("General Health Insights and Suggestions:")
         # Set up OpenAI API key
         openai.api_key = st.secrets["api"]
 
@@ -120,9 +140,18 @@ if ecg_path is not None:
         image2_data = base64.b64decode(data_r['image'])
         image2 = Image.open(io.BytesIO(image2_data))
         st.image(image2, caption=f"{sub_gl}", use_column_width=True)
-
-        st.subheader(f"Your Deeprythm: {data_r['prediction']} 🩺❤️")
-        st.success(f"<h2>Prediction: <b>{data_r['prediction']}</b></h2>")
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.markdown(f"## Your Deeprythm: ")
+        if data_r['prediction'] not in excluded_classes:
+            st.markdown(f"## ❤️‍🩹🩺 {data_r['prediction']} 🩺❤️‍🩹")
+        else:
+            st.markdown(f"## ❤️🩺 {data_r['prediction']} 🩺❤️")
+        # Streamlit app layout
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
+        st.write("<br>", unsafe_allow_html=True)
 
         # Streamlit app layout
         st.title("General Health Insights and Suggestions")
