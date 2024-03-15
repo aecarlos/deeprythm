@@ -84,7 +84,7 @@ if pdf_path is not None:
         st.write("<br>", unsafe_allow_html=True)
         st.write("<br>", unsafe_allow_html=True)
         st.write("<br>", unsafe_allow_html=True)
-        st.markdown(f"## Your Deeprythm: ")
+        st.markdown(f"## Your Deeprhythm: ")
         if data_r['prediction'] not in excluded_classes:
             st.markdown(f"## ❤️‍🩹🩺 {data_r['prediction']} 🩺❤️‍🩹")
         else:
@@ -109,7 +109,7 @@ if pdf_path is not None:
 
         # User input prompt
         #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
-        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown with a font size of 18 for an elegant display in my Streamlit app."
+        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
@@ -142,7 +142,7 @@ if ecg_path is not None:
         st.write("<br>", unsafe_allow_html=True)
         st.write("<br>", unsafe_allow_html=True)
         st.write("<br>", unsafe_allow_html=True)
-        st.markdown(f"## Your Deeprythm: ")
+        st.markdown(f"## Your Deeprhythm: ")
         if data_r['prediction'] not in excluded_classes:
             st.markdown(f"## ❤️‍🩹🩺 {data_r['prediction']} 🩺❤️‍🩹")
         else:
@@ -170,7 +170,7 @@ if ecg_path is not None:
         # User input prompt
         # User input prompt
         #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
-        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown with a font size of 18 for an elegant display in my Streamlit app."
+        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
