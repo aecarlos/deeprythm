@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-COPY requirements.txt /requirements.txt
+COPY requirements_docker.txt /requirements_docker.txt
 RUN pip install -r requirements.txt
 
 COPY data /data
