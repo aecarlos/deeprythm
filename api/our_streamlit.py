@@ -30,7 +30,7 @@ st.sidebar.header("Upload :gear:")
 age = st.sidebar.slider('Your age', min_value=0, max_value=100)
 st.sidebar.write("You selected ", age)
 
-gender = st.sidebar.selectbox('Your gender', options=['Male', 'Female'])
+gender = st.sidebar.selectbox('Your gender', options=['Male', 'Female', 'Non-binary'])
 st.sidebar.write("You selected ", gender)
 
 height = st.sidebar.slider('Your height (in cm)', min_value=0, max_value=220)
