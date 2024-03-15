@@ -102,7 +102,7 @@ if pdf_path is not None:
         # Function to generate GPT response
         def generate_response(prompt):
             response = openai.ChatCompletion.create(
-                model="gpt-4-0125-preview",  # Specify the chat-based GPT model here
+                model="gpt-3.5-turbo",  # Specify the chat-based GPT model here
                 messages=[{"role": "system", "content": "Prompt: " + prompt}],
                 max_tokens=1000  # Adjust based on desired length of the response
             )
@@ -162,7 +162,7 @@ if ecg_path is not None:
         # Function to generate GPT response
         def generate_response(prompt):
             response = openai.ChatCompletion.create(
-                model="gpt-4-0125-preview",  # Specify the chat-based GPT model here
+                model="gpt-3.5-turbo",  # Specify the chat-based GPT model here
                 messages=[{"role": "system", "content": "Prompt: " + prompt}],
                 max_tokens=1000  # Adjust based on desired length of the response
             )
