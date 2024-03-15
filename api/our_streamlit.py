@@ -115,6 +115,7 @@ if pdf_path is not None:
         processing_message = st.info("Processing your request...")
         response = generate_response(prompt)
         # Display response
+        processing_message.empty()
         st.markdown(response)
     else:
         st.error("Failed to fetch images and prediction from API")
@@ -177,6 +178,7 @@ if ecg_path is not None:
         processing_message = st.info("Processing your request...")
         response = generate_response(prompt)
         # Display response
+        processing_message.empty()
         st.markdown(response)
     else:
         st.error("Failed to fetch images and prediction from API")
