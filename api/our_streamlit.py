@@ -112,8 +112,8 @@ if pdf_path is not None:
         #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
         prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
-        response = generate_response(prompt)
         processing_message = st.info("Processing your request...")
+        response = generate_response(prompt)
         # Display response
         st.markdown(response)
     else:
@@ -174,8 +174,8 @@ if ecg_path is not None:
         #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
         prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
-        response = generate_response(prompt)
         processing_message = st.info("Processing your request...")
+        response = generate_response(prompt)
         # Display response
         st.markdown(response)
     else:
