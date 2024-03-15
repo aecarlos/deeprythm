@@ -24,6 +24,7 @@ st.write("<br>", unsafe_allow_html=True)
 st.write("<br>", unsafe_allow_html=True)
 st.write(":dog: Try uploading an ElectroCardiogram PDF. This code is open source and available [here](https://github.com/ivanmarim/deeprythm) on GitHub")
 st.write('Special thanks to the [Physionet Dataset](https://physionet.org/content/ptb-xl/1.0.3/) :grin:')
+st.write("* This app takes into consideration only the II-Lead. This app is for educational purposes only and should not be used as a substitute for professional medical advice, diagnosis or treatment. For any medical questions, please consult a medical professional. *")
 st.sidebar.header("Upload :gear:")
 
 age = st.sidebar.slider('Your age', min_value=0, max_value=100)
