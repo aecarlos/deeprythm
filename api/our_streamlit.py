@@ -110,7 +110,7 @@ if pdf_path is not None:
 
         # User input prompt
         #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
-        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown for an elegant display in my Streamlit app."
+        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
@@ -162,7 +162,7 @@ if ecg_path is not None:
         # Function to generate GPT response
         def generate_response(prompt):
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",  # Specify the chat-based GPT model here
+                model="gpt-4-0125-preview",  # Specify the chat-based GPT model here
                 messages=[{"role": "system", "content": "Prompt: " + prompt}],
                 max_tokens=1000  # Adjust based on desired length of the response
             )
@@ -171,7 +171,7 @@ if ecg_path is not None:
         # User input prompt
         # User input prompt
         #prompt = f"My heart is classified with this rythm {data_r['prediction']}.I am a {gender}, I have {age} years old and my weight is {weight}. Could you give me some basic health and lifestyle recommendations specific and really related to my characteristics? And can you send me those in Streamlit Markdown format with font size of 18 so it is shown fancy in my streamlit app."
-        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Streamlit Markdown for an elegant display in my Streamlit app."
+        prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
         # Display response
