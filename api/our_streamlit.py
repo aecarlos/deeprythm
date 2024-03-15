@@ -113,6 +113,7 @@ if pdf_path is not None:
         prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
+        processing_message = st.info("Processing your request...")
         # Display response
         st.markdown(response)
     else:
@@ -174,6 +175,7 @@ if ecg_path is not None:
         prompt = f"My heart is classified with the following rhythm: **{data_r['prediction']}**. I am a {gender} of {age} years old, weighing {weight} kilograms and with height {height}. Could you please provide me with personalized health and lifestyle recommendations based on my characteristics? It would be great if you could format the recommendations using Markdown for an elegant display in my Streamlit app."
         # Generate GPT response
         response = generate_response(prompt)
+        processing_message = st.info("Processing your request...")
         # Display response
         st.markdown(response)
     else:
