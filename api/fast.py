@@ -74,9 +74,36 @@ async def upload_file(device: str = Form(...), file: UploadFile = File(...)):
 
 
 @app.post("/uploadecg")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_ecg(file: UploadFile = File(...)):
     with open(f"{file.filename}", "wb") as jpg_file:
         shutil.copyfileobj(file.file, jpg_file)
+
+    #Take one ecg picture to make a prediction
+    img = tf.keras.preprocessing.image.load_img(file.filename)
+
+    # Resize the image to match the target shape
+    new_height, new_width = 79, 622  # Specify the target height and width
+    resized_img = tf.image.resize(img, (new_height, new_width))
+
+    # Expand the dimensions to create a batch with a single image
+    input_img = tf.expand_dims(resized_img, axis=0)
+
+    # Load the model
+    model = model_load_compile('models/base_model_fulldata_2.h5')
+    # Make predictions
+    predictions_list = model.predict(input_img).tolist()[0]
+    prediction = predictions_list.index(max(predictions_list))
+    category = smote_class_dict[prediction]
+    full_name = full_name_rythm[category]
+
+    # Read images as binary data
+    with open(file.filename, 'rb') as f:
+        image_data = f.read()
+
+    # Encode images as base64 strings
+    image_base64 = base64.b64encode(image_data).decode('utf-8')
+    return {'image': image_base64,
+            'prediction': full_name}
 
 @app.get("/")
 def root():
